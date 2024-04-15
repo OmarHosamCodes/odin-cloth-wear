@@ -1,0 +1,25 @@
+.colorsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.colorContainer {
+  display: inline-flex;
+  /* flex-wrap: initial; */
+  justify-content: center;
+
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+
+.color {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 3px;
+  border-color: transparent;
+  transition: all 0.3s;
+}

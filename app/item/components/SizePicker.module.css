@@ -1,0 +1,24 @@
+.sizesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px;
+  transition: all 0.3s;
+}
+
+.sizeContainer {
+  display: inline-flex;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.size {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s;
+}

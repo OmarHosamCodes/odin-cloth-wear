@@ -1,0 +1,48 @@
+.container {
+  position: relative;
+  text-align: center;
+  max-width: 100vw;
+}
+
+.imageContainer {
+  display: inline-block;
+  position: relative;
+  /* aspect-ratio: 2/3; */
+  background-size: contain;
+}
+
+.image {
+  /* max-width: 100%; */
+  /* display: none; */
+  background: no-repeat;
+  background-position: 10px 25px;
+  background-clip: border-box;
+  transition: opacity 3s;
+  border-radius: 5px;
+  box-shadow: #0f0f0f 0px 0px 10px;
+  aspect-ratio: 2/3;
+  width: 100%;
+  height: 100%;
+}
+
+.detailsContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.8s;
+  background-color: #f7f7f752;
+}
+
+.activeDot {
+  background-color: #f7f7f7;
+}
