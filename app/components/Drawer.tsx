@@ -23,9 +23,19 @@ import MenuIcon from "../../public/menu-2.svg";
 import { HotNowShowcase } from "./HotNow";
 import ItemRepository from "../item/repository";
 import Item from "../item/model";
-import { itemsFetch } from "../page";
 import { useRouter } from "next/navigation";
+import { cache } from "react";
 const drawerWidth = 240;
+
+const itemsFetch = cache(async () => {
+  try {
+    let response: Item[] = (await ItemRepository.instants.get()) as Item[];
+    return response;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+});
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
