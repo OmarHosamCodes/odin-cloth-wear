@@ -1,10 +1,10 @@
 import CartItemModel from "./model";
 
 export default class CartRepository {
-  private static _storage: Storage =
-    typeof localStorage !== "undefined" ? localStorage : sessionStorage;
+  private static _storage: Storage | null =
+    typeof window !== "undefined" ? localStorage : null;
   public static get storage(): Storage {
-    return CartRepository._storage;
+    return CartRepository._storage!;
   }
 
   static getCartItems(): CartItemModel[] {
