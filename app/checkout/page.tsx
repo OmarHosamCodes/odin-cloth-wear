@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CartRepository from "../cart/repository";
 import CheckoutItems from "./components/CheckoutItems";
 import styles from "./page.module.css";
@@ -9,15 +9,23 @@ import { useRouter } from "next/navigation";
 
 export default function Checkout() {
   const router = useRouter();
-  const [checkoutItems, setCheckoutItems] = useState<CartItemModel[]>(
-    CartRepository.getCartItems()
-  );
+  const [checkoutItems, setCheckoutItems] = useState<CartItemModel[]>([]);
+
+  useEffect(() => {
+    setCheckoutItems(CartRepository.getCartItems());
+  }, []);
 
   const formRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState(false);
 
   if (checkoutItems.length === 0) {
-    router.replace("/cart");
+    return (
+      <div className={styles.errorLayout}>
+        <text className={styles.errorText}>No Items To Checkout!</text>
+
+        <button className={styles.errorButton}>Go Home</button>
+      </div>
+    );
   }
 
   return (

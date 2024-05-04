@@ -63,3 +63,18 @@
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
+.errorLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorButton {
+  width: 50%;
+  background-color: #f7f7f7;
+  color: #0f0f0f;
+}
+
+.errorText {
+  font-size: 1rem;
+}
