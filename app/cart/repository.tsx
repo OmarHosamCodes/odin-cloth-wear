@@ -1,14 +1,16 @@
-import CartItemModel from "./model";
+"use client";
 
+import CartItemModel from "./model";
+import { LocalKey, LocalStorage } from "ts-localstorage";
 export default class CartRepository {
-  private static _storage: Storage | null =
-    typeof window !== "undefined" ? localStorage : null;
-  public static get storage(): Storage {
-    return CartRepository._storage!;
+  private static _storage = LocalStorage;
+  public static get storage() {
+    return CartRepository._storage;
   }
+  static key = new LocalKey<string | null | undefined>("cartItems", "");
 
   static getCartItems(): CartItemModel[] {
-    const items = this.storage.getItem("cartItems");
+    const items = this.storage.getItem(this.key);
     if (items) {
       return CartItemModel.cartItemsFromJson(JSON.parse(items));
     }
@@ -22,13 +24,13 @@ export default class CartRepository {
     }
 
     items.push(item);
-    this.storage.setItem("cartItems", JSON.stringify(items));
+    this.storage.setItem(this.key, JSON.stringify(items));
   }
 
   static removeCartItem(id: string) {
     const items = this.getCartItems();
     const newItems = items.filter((item) => item.id !== id);
-    this.storage.setItem("cartItems", JSON.stringify(newItems));
+    this.storage.setItem(this.key, JSON.stringify(newItems));
   }
 
   static updateCartItem(id: string, quantity: number) {
@@ -39,7 +41,7 @@ export default class CartRepository {
       }
       return item;
     });
-    this.storage.setItem("cartItems", JSON.stringify(newItems));
+    this.storage.setItem(this.key, JSON.stringify(newItems));
   }
 
   static getCartItem(id: string): CartItemModel | undefined {
