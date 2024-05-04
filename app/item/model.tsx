@@ -79,17 +79,17 @@ class Item {
     );
   }
 
-  static idKey = "id";
-  static nameKey = "name";
-  static descriptionKey = "description";
-  static imagesKey = "images";
-  static priceKey = "price";
-  static categoryKey = "category";
-  static subCategoryKey = "subCategory";
-  static colorsKey = "colors";
-  static sizesKey = "sizes";
-  static sizingKey = "sizing";
-  static tagsKey = "tags";
+  static readonly idKey = "id";
+  static readonly nameKey = "name";
+  static readonly descriptionKey = "description";
+  static readonly imagesKey = "images";
+  static readonly priceKey = "price";
+  static readonly categoryKey = "category";
+  static readonly subCategoryKey = "subCategory";
+  static readonly colorsKey = "colors";
+  static readonly sizesKey = "sizes";
+  static readonly sizingKey = "sizing";
+  static readonly tagsKey = "tags";
 
   toJson(): any {
     return {

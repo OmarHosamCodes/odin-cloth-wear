@@ -4,9 +4,15 @@ import Item from "../model";
 
 import styles from "./SizePicker.module.css";
 
-export default function SizePicker({ item }: { item: Item }) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-
+export default function SizePicker({
+  item,
+  selectedSize,
+  setSelectedSize,
+}: {
+  item: Item;
+  selectedSize: string | null;
+  setSelectedSize: (size: string) => void;
+}) {
   let sizes: string[] = item.sizes;
 
   console.log(sizes);

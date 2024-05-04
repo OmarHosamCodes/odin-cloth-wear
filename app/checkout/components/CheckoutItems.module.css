@@ -1,0 +1,10 @@
+.cartItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+}

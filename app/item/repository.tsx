@@ -1,4 +1,4 @@
-import ItemModel from "./model";
+import Item from "./model";
 import { firestore } from "../config/firebase";
 import {
   CollectionReference,
@@ -11,10 +11,6 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
-
-interface Item {
-  // Define the structure of your Item interface here
-}
 
 class ItemRepository {
   firestore: Firestore;
@@ -37,7 +33,7 @@ class ItemRepository {
     if (!snapshot.exists()) {
       return null;
     }
-    return ItemModel.fromJson(snapshot.data());
+    return Item.fromJson(snapshot.data());
   }
 
   async getByCategory(category: string, limitNumber?: number): Promise<Item[]> {
@@ -50,7 +46,7 @@ class ItemRepository {
     const snapshot = await getDocs(q);
     const items: Item[] = [];
     snapshot.forEach((doc) => {
-      items.push(ItemModel.fromJson(doc.data()));
+      items.push(Item.fromJson(doc.data()));
     });
     return items;
   }
@@ -61,7 +57,7 @@ class ItemRepository {
     const snapshot = await getDocs(q);
     const items: Item[] = [];
     snapshot.forEach((doc) => {
-      items.push(ItemModel.fromJson(doc.data()));
+      items.push(Item.fromJson(doc.data()));
     });
     return items;
   }
@@ -72,7 +68,7 @@ class ItemRepository {
     const snapshot = await getDocs(q);
     const items: Item[] = [];
     snapshot.forEach((doc) => {
-      items.push(ItemModel.fromJson(doc.data()));
+      items.push(Item.fromJson(doc.data()));
     });
     return items;
   }
@@ -96,7 +92,7 @@ class ItemRepository {
     console.log(snapshot);
     const items: Item[] = [];
     snapshot.forEach((doc) => {
-      items.push(ItemModel.fromJson(doc.data()));
+      items.push(Item.fromJson(doc.data()));
     });
     return items;
   }

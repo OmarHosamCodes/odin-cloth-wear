@@ -1,6 +1,4 @@
 "use client";
-
-import Appbar from "../../components/AppBar";
 import ImageViewer from "../components/ImageViewer";
 import ItemRepository from "../repository";
 import ColorPicker from "../components/ColorPicker";
@@ -8,52 +6,63 @@ import SizePicker from "../components/SizePicker";
 import AddToCart from "../components/AddToCart";
 import Description from "../components/Desctiption";
 import Sizing from "../components/Sizing";
-import { useEffect, useState } from "react";
+import { cache, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import ItemModel from "../model";
-
+import PersistentDrawerLeft from "@/app/components/Drawer";
+const itemFetch = cache(async (id: string) => {
+  try {
+    let response: ItemModel = (await ItemRepository.instants.getById(
+      id
+    )) as ItemModel;
+    return response;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+});
 export default function Item({ params }: { params: { id: string } }) {
-  const [item, setItem] = useState<ItemModel>(ItemModel.empty());
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [item, setItem] = useState<ItemModel | null>();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        let response: ItemModel = (await ItemRepository.instants.getById(
-          params.id
-        )) as ItemModel;
-        setItem(response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+    itemFetch(params.id).then((item) => {
+      setItem(item);
+    });
   }, [params.id]);
   if (!item) {
     return <div>Loading...</div>;
   }
   return (
     <>
-      <Appbar
-        onClick={() => {
-          console.log("Appbar clicked");
-        }}
-      ></Appbar>
-      <main>
+      <PersistentDrawerLeft />
+      <div className={styles.content}>
         <ImageViewer item={item!} />
-
         <div className={styles.details}>
           <h1>{item?.name}</h1>
           {/* <p>{item.description}</p> */}
           <p>{item?.category}</p>
           <p>{item?.price}</p>
-          <ColorPicker item={item!} />
-          <SizePicker item={item!} />
-          <AddToCart />
+          <ColorPicker
+            item={item!}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+          />
+          <SizePicker
+            item={item!}
+            selectedSize={selectedSize}
+            setSelectedSize={setSelectedSize}
+          />
+          <AddToCart
+            item={item!}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+          />
           <Description item={item!} />
           <Sizing item={item!} />
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -1,6 +1,7 @@
-class CartItem {
+export default class CartItemModel {
   id: string;
-  color: number;
+  image: string;
+  color: string;
   size: string;
   price: number;
   name: string;
@@ -8,13 +9,15 @@ class CartItem {
 
   constructor(
     id: string,
-    color: number,
+    image: string,
+    color: string,
     size: string,
     price: number,
     name: string,
     quantity: number = 1
   ) {
     this.id = id;
+    this.image = image;
     this.color = color;
     this.size = size;
     this.price = price;
@@ -25,6 +28,7 @@ class CartItem {
   toJson(): any {
     return {
       id: this.id,
+      image: this.image,
       color: this.color,
       size: this.size,
       price: this.price,
@@ -33,14 +37,23 @@ class CartItem {
     };
   }
 
-  static fromJson(json: any): CartItem {
-    return new CartItem(
+  static fromJson(json: any): CartItemModel {
+    return new CartItemModel(
       json.id,
+      json.image,
       json.color,
       json.size,
       json.price,
       json.name,
       json.quantity
     );
+  }
+
+  static cartItemsFromJson(json: any): CartItemModel[] {
+    let cartItems: CartItemModel[] = [];
+    json.map((item: any) => {
+      cartItems.push(CartItemModel.fromJson(item));
+    });
+    return cartItems;
   }
 }

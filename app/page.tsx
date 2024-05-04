@@ -1,18 +1,31 @@
-"use client";
-
-import { useState } from "react";
-import Appbar from "./components/AppBar";
 import ItemsDisplay from "./item/components/ItemsDisplay";
-export default function Home() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+import PersistentDrawerLeft from "./components/Drawer";
+import ContactInfo from "./components/ContactInfo";
+import Item from "./item/model";
+import { cache } from "react";
+import ItemRepository from "./item/repository";
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+const itemsFetch = cache(async () => {
+  try {
+    let response: Item[] = (await ItemRepository.instants.get()) as Item[];
+    return response;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+});
+
+export default function Home() {
   return (
     <>
-      <Appbar onClick={toggleDrawer} />
-      <ItemsDisplay />
+      <PersistentDrawerLeft />
+
+      <main>
+        <ItemsDisplay />
+        <ContactInfo />
+      </main>
     </>
   );
 }
+
+export { itemsFetch };

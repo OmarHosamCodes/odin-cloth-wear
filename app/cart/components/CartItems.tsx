@@ -1,18 +1,20 @@
-import CartItem from "./CartItem";
+import CartItemModel from "../model";
 import styles from "./CartItems.module.css";
+import CartItem from "./CartItem";
+
 export default function CartItems({
   cartItems,
 }: {
-  cartItems: CartItem[] | null;
+  cartItems: CartItemModel[];
 }) {
-  if (!cartItems) {
+  if (cartItems.length === 0) {
     return <h3 className={styles.cartEmpty}>Cart is empty</h3>;
   }
 
   return (
-    <div>
-      {cartItems.map((cartItem) => (
-        <CartItem key={cartItem.id} cartItem={cartItem} />
+    <div className={styles.cartItems}>
+      {cartItems.map((model) => (
+        <CartItem key={model.id} cartItem={model} />
       ))}
     </div>
   );

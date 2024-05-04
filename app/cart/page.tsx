@@ -1,24 +1,24 @@
 "use client";
-import React from "react";
-import Appbar from "../components/AppBar";
-import CartItem from "./components/CartItem";
+
+import React, { createContext, useContext } from "react";
 import CartItems from "./components/CartItems";
 import Checkout from "./components/Checkout";
-
 import styles from "./page.module.css";
+import PersistentDrawerLeft from "../components/Drawer";
+import CartRepository from "./repository";
+import CartItemModel from "./model";
+
 export default function Cart() {
+  const [cartItems, setCartItems] = React.useState<CartItemModel[]>(
+    CartRepository.getCartItems()
+  );
+
   return (
     <>
-      <Appbar
-        onClick={() => {
-          console.log("Appbar clicked");
-        }}
-      ></Appbar>
-
+      <PersistentDrawerLeft />
       <main className={styles.main}>
-        <CartItems cartItems={null} />
-
-        <Checkout />
+        <CartItems cartItems={cartItems} />
+        <Checkout cartItems={cartItems} />
       </main>
     </>
   );

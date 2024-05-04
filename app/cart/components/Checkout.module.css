@@ -6,3 +6,8 @@
   border: 0px solid;
   border-radius: 5px;
 }
+
+.checkoutButton:disabled {
+  background-color: #f7f7f7;
+  color: #0f0f0f;
+}

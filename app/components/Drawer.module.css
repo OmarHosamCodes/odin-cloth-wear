@@ -1,20 +1,52 @@
-.side-drawer {
-    position: fixed;
-    height: 100%;
-    background: black;
-    color: white;
-    top: 0;
-    right: 100%;
-    /* changed it */
-    width: 40%;
-    z-index: 200;
-    box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-    transform: translateX(0);
-    /* changed it */
-    transition: transform 0.3s ease-out;
+.appbarContainer {
+  background-color: #0f0f0f;
+  color: #f7f7f7;
+  padding: 10px;
+  width: 100%;
+  position: "fixed";
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-.side-drawer.open {
-    transform: translateX(100%);
-    /* changed it */
+.appbarHeader {
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appbarSearchContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.appbarSearch {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: #f7f7f7;
+  color: #0f0f0f;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.hotNowIcon {
+  filter: invert(98%) sepia(98%) saturate(4007%) hue-rotate(357deg)
+    brightness(104%) contrast(106%);
+}
+
+.shoppingCartIcon,
+.menuIcon,
+.homeIcon {
+  filter: invert(98%) sepia(7%) saturate(200%) hue-rotate(296deg)
+    brightness(115%) contrast(88%);
 }

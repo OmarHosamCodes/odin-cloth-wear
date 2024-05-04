@@ -1,0 +1,84 @@
+.ContactInfoContainer {
+  background-color: #0f0f0f; /* Light gray background */
+  padding: 20px;
+  color: #f0f0f0; /* Dark gray text color */
+}
+
+.ContactInfoContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ContactInfoTitle {
+  margin-bottom: 20px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.ContactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.ContactLinks a {
+  text-decoration: none;
+}
+.ContactLinks a:hover {
+  box-shadow: 0 0 5px #f0f0f0; /* Add a glow effect */
+  margin: 5px; /* Add some space around the link */
+  padding: 5px; /* Add some padding */
+  transition: all 0.3s ease;
+}
+
+.SocialMediaSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SocialMediaTitle {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Responsive Styles (adjust breakpoints as needed) */
+/* @media only screen and (max-width: 768px) {
+  .ContactInfoContent {
+    flex-direction: column;
+  }
+
+  .ContactLinks {
+    flex-direction: row;
+    justify-content: space-around; 
+
+  .SocialMedialist {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+  }
+
+  .SocialMedialist li {
+    margin: 5px; 
+  }
+} */
+
+/* Add styles for your SocialMediaIcon component here */
+
+.SocialMediaicons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+.SocialMediaicon {
+  width: 30px;
+  height: 30px; /* Adjust size as needed */
+  color: #f0f0f0; /* Dark gray icon color */
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}

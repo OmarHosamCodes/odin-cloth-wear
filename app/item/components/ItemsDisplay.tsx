@@ -1,26 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ItemRepository from "../repository";
 import Item from "../model";
 import ItemDisplay from "@/app/item/components/ItemDisplay";
 import styles from "./ItemsDisplay.module.css";
+import { itemsFetch } from "@/app/page";
 
-function ItemsDisplay() {
-  const [items, setItems] = useState<Item[]>([]);
+export default function ItemsDisplay() {
+  const [items, setItems] = React.useState<Item[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let response: Item[] = (await ItemRepository.instants.get()) as Item[];
-        setItems(response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+  React.useEffect(() => {
+    itemsFetch().then((items) => {
+      setItems(items);
+    });
   }, []);
-
   return (
     <div className={styles.itemsGrid}>
       {items.map((item, index) => (
@@ -29,5 +21,3 @@ function ItemsDisplay() {
     </div>
   );
 }
-
-export default ItemsDisplay;

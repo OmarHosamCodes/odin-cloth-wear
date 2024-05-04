@@ -1,3 +1,20 @@
 .details {
-    padding: 5px;
+  margin: 0px;
+  padding: 0px;
+  width: 90%;
+}
+
+@media (min-width: 768px) {
+  .details {
+    width: auto;
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
