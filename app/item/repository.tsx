@@ -37,53 +37,44 @@ class ItemRepository {
   }
 
   async getByCategory(category: string, limitNumber?: number): Promise<Item[]> {
-    const itemsCollection = ItemRepository.itemsCollection;
-    const q = query(
-      itemsCollection,
-      orderBy("category"),
-      limit(limitNumber || 6)
-    );
-    const snapshot = await getDocs(q);
+    const snapshot = await this.get();
     const items: Item[] = [];
-    snapshot.forEach((doc) => {
-      items.push(Item.fromJson(doc.data()));
+    snapshot.forEach((item) => {
+      items.push(Item.fromJson(item));
     });
-    return items;
+    const filteredItems: Item[] = items.filter(
+      (item) => item.category === category
+    );
+    return filteredItems;
   }
 
   async getByTag(tag: string): Promise<Item[]> {
-    const itemsCollection = ItemRepository.itemsCollection;
-    const q = query(itemsCollection, orderBy("tags"), limit(6));
-    const snapshot = await getDocs(q);
+    const snapshot = await this.get();
     const items: Item[] = [];
-    snapshot.forEach((doc) => {
-      items.push(Item.fromJson(doc.data()));
+    snapshot.forEach((item) => {
+      items.push(Item.fromJson(item));
     });
-    return items;
+    const filteredItems: Item[] = items.filter((item) =>
+      item.tags.includes(tag)
+    );
+    return filteredItems;
   }
 
   async getByName(name: string): Promise<Item[]> {
-    const itemsCollection = ItemRepository.itemsCollection;
-    const q = query(itemsCollection, orderBy("name"), limit(6));
-    const snapshot = await getDocs(q);
+    const snapshot = await this.get();
+
     const items: Item[] = [];
-    snapshot.forEach((doc) => {
-      items.push(Item.fromJson(doc.data()));
+    snapshot.forEach((item) => {
+      items.push(Item.fromJson(item));
     });
-    return items;
-  }
-
-  async getByQuery(query: string): Promise<Item[]> {
-    const searchQuery = new Set<Item>();
-    const tagsQuery = await this.getByTag(query);
-    const nameQuery = await this.getByName(query);
-    const categoryQuery = await this.getByCategory(query, 100);
-
-    tagsQuery.forEach((item) => searchQuery.add(item));
-    nameQuery.forEach((item) => searchQuery.add(item));
-    categoryQuery.forEach((item) => searchQuery.add(item));
-
-    return Array.from(searchQuery);
+    const filteredItems: Item[] = items.filter((item) =>
+      item.name.includes(name)
+    );
+    const uniqueItems = Array.from(new Set(filteredItems));
+    for (let i = 0; i < uniqueItems.length; i++) {
+      console.log(uniqueItems[i].id);
+    }
+    return uniqueItems;
   }
 
   async get(): Promise<Item[]> {

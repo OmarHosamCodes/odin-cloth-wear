@@ -10,16 +10,6 @@
   object-fit: cover;
 }
 
-/* .container {
-  display: flex;
-  gap: 10px;
-  background-color: aliceblue;
-  max-width: 100%;
-  height: max-content;
-  margin-left: 10px;
-  border-radius: 5px;
-} */
-
 .contentBox {
   display: flex;
   flex-direction: row;

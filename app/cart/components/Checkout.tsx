@@ -9,12 +9,11 @@ export default function Checkout({
 }) {
   const router = useRouter();
 
-  if (cartItems.length === 0) {
+  if (cartItems.length == 0) {
     return (
       <button
-        className={styles.checkoutButton}
-        disabled
-        onClick={() => router.push("/checkout")}
+        className={styles.continueShoppingButton}
+        onClick={() => router.push("/")}
       >
         Continue Shopping
       </button>

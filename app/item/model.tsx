@@ -110,6 +110,10 @@ class Item {
   static empty(): Item {
     return new Item("", "", "", [], 0, "", "", [], [], [], []);
   }
+
+  static filterItemsByCategory(items: Item[], category: string): Item[] {
+    return items.filter((item) => item.category === category);
+  }
 }
 
 export default Item;

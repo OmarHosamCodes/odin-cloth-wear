@@ -1,0 +1,58 @@
+.container {
+  margin: 0 5px;
+  border-radius: 10px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  box-shadow: #0f0f0f 0px 0px 10px;
+  width: 432;
+  height: 649;
+  max-width: 100%;
+
+  align-content: flex-start;
+  justify-content: flex-start;
+  display: flex;
+  animation: loop 10s infinite;
+  behavior: smooth;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+  box-shadow: #0f0f0f 0px 0px 10px;
+  transition: opacity 5s all;
+}
+
+@keyframes loop {
+  0% {
+    top: 0%;
+    left: 0%;
+  }
+  50% {
+    top: 0%;
+    left: 100%;
+  }
+  100% {
+    top: 0%;
+    left: 0%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

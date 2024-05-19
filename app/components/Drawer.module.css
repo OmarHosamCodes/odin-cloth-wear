@@ -24,10 +24,13 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  max-height: 50px;
 }
 
 .appbarSearch {
   width: 100%;
+  max-height: 50px;
+  height: 40px;
   padding: 10px;
   border-radius: 20px;
   border: none;
@@ -37,6 +40,29 @@
   font-size: 1rem;
   font-weight: 500;
   margin-right: 10px;
+}
+.searchButton {
+  max-height: 50px;
+  width: 40px;
+  height: 40px;
+
+  background-color: #f7f7f7;
+  color: #0f0f0f;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.searchIcon {
+  filter: invert(0%) sepia(87%) saturate(3972%) hue-rotate(176deg)
+    brightness(112%) contrast(88%);
+  width: 20px;
+  height: 20px;
 }
 
 .hotNowIcon {

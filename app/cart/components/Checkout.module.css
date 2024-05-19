@@ -5,9 +5,15 @@
   color: #f7f7f7;
   border: 0px solid;
   border-radius: 5px;
+  cursor: pointer;
 }
 
-.checkoutButton:disabled {
+.continueShoppingButton {
   background-color: #f7f7f7;
   color: #0f0f0f;
+  width: 100%;
+  padding: 10px;
+  border: 0px solid;
+  border-radius: 5px;
+  cursor: pointer;
 }

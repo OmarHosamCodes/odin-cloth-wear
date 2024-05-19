@@ -2,19 +2,26 @@
 import React, { use, useState } from "react";
 import styles from "./ImageViewer.module.css";
 import Image from "next/image";
-import Swipeable, { useSwipeable } from "react-swipeable";
+import { useSwipeable } from "react-swipeable";
+import { useRouter } from "next/navigation";
 
 interface ImageViewerProps {
   item: {
     images: string[];
   };
   showDetails?: boolean;
+  id: string;
+  disableNavigation?: boolean;
 }
 
 const ImageViewer: React.FC<ImageViewerProps> = ({
   item,
   showDetails = true,
+  id,
+  disableNavigation = false,
 }) => {
+  const router = useRouter();
+
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const handlers = useSwipeable({
@@ -39,7 +46,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div {...handlers} className={styles.container}>
       <div className={styles.imageContainer}>
         {item.images.map((image: string, index: number) => (
           <Image
@@ -51,6 +58,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
             width={432}
             height={649}
             priority
+            onClick={() => {
+              if (disableNavigation) return;
+              router.push(`/item/${id}`);
+            }}
           />
         ))}
       </div>

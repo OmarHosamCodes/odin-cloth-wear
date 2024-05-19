@@ -4,6 +4,13 @@
   width: 90%;
 }
 
+.pickers {
+  background-color: #0f0f0f60;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
 @media (min-width: 768px) {
   .details {
     width: auto;
@@ -17,4 +24,10 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .content {
+    width: 100%;
+  }
 }

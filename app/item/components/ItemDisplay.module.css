@@ -11,8 +11,23 @@
   margin: 10px;
   max-width: 100vw;
 }
+.containerGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  width: fit-content;
+  height: fit-content;
+  margin: 10px;
+  max-width: 100vw;
+}
 
-.nameAndPriceContainer {
+.nameAndPriceContainer,
+.nameAndPriceContainerGrid {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -28,4 +43,10 @@
 
 .nameAndPriceContainer h4 {
   padding: 0 5px;
+  font-size: 0.85rem;
+}
+
+.nameAndPriceContainerGrid h4 {
+  padding: 0 5px;
+  font-size: 0.6rem;
 }

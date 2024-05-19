@@ -26,8 +26,9 @@ export default function SizePicker({
             key={index}
             className={styles.size}
             style={{
+              borderRadius: "5px",
               backgroundColor: isSelected ? "#0f0f0f" : "transparent",
-              color: isSelected ? "#f7f7f7" : "#0f0f0f",
+              color: "#f7f7f7",
               border: isSelected ? "3px solid #0f0f0f" : "3px solid #f7f7f7",
             }}
             onClick={() => setSelectedSize(size)}

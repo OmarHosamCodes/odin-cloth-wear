@@ -1,9 +1,22 @@
-.itemsGrid {
+.itemsList {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  max-width: 100%; /* or any other percentage value */
+  transition: all 0.5s;
+}
+
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-rows: ; */
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  justify-items: center;
+  align-items: center;
   margin: 0 auto;
   max-width: 100%; /* or any other percentage value */
   transition: all 0.5s;

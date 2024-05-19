@@ -38,22 +38,24 @@ export default function Item({ params }: { params: { id: string } }) {
     <>
       <PersistentDrawerLeft />
       <div className={styles.content}>
-        <ImageViewer item={item!} />
+        <ImageViewer item={item!} id={params.id} disableNavigation={true} />
         <div className={styles.details}>
           <h1>{item?.name}</h1>
-          {/* <p>{item.description}</p> */}
           <p>{item?.category}</p>
           <p>{item?.price}</p>
-          <ColorPicker
-            item={item!}
-            selectedColor={selectedColor}
-            setSelectedColor={setSelectedColor}
-          />
-          <SizePicker
-            item={item!}
-            selectedSize={selectedSize}
-            setSelectedSize={setSelectedSize}
-          />
+          <div className={styles.pickers}>
+            <ColorPicker
+              item={item!}
+              selectedColor={selectedColor}
+              setSelectedColor={setSelectedColor}
+            />
+            <SizePicker
+              item={item!}
+              selectedSize={selectedSize}
+              setSelectedSize={setSelectedSize}
+            />
+          </div>
+
           <AddToCart
             item={item!}
             selectedColor={selectedColor}

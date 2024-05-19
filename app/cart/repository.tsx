@@ -48,4 +48,8 @@ export default class CartRepository {
     const items = this.getCartItems();
     return items.find((item) => item.id === id);
   }
+
+  static clearCart() {
+    this.storage.setItem(this.key, JSON.stringify([]));
+  }
 }

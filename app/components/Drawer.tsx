@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -18,13 +18,14 @@ import Link from "next/link";
 import Image from "next/image";
 import HomeIcon from "../../public/home.svg";
 import FlashkIcon from "../../public/flash.svg";
+import SearchIcon from "../../public/search-outline.svg";
 import ShoppingCartIcon from "../../public/shopping-cart.svg";
 import MenuIcon from "../../public/menu-2.svg";
 import { HotNowShowcase } from "./HotNow";
 import ItemRepository from "../item/repository";
 import Item from "../item/model";
 import { useRouter } from "next/navigation";
-import { cache } from "react";
+import { cache, useEffect, useRef, useState } from "react";
 const drawerWidth = 240;
 
 const itemsFetch = cache(async () => {
@@ -91,15 +92,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const router = useRouter();
-  const [items, setItems] = React.useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     itemsFetch().then((items) => {
       setItems(items);
     });
   }, []);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,6 +113,7 @@ export default function PersistentDrawerLeft() {
   };
   const logoURL =
     "https://firebasestorage.googleapis.com/v0/b/odin-cloth-wear-sever-dev.appspot.com/o/admin%2Fassets%2Fnobglogowhite.png?alt=media&token=5633e5d7-cb3f-40e7-8677-1b6afa135fab";
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar open={open} className={styles.appbarContainer}>
@@ -147,13 +151,48 @@ export default function PersistentDrawerLeft() {
             />
           </Link>
         </Toolbar>
-        <div className={styles.appbarSearchContainer}>
+        <form className={styles.appbarSearchContainer} ref={formRef}>
           <input
             type="text"
+            name="text"
             placeholder="Search"
             className={styles.appbarSearch}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              if (event.target.validity.patternMismatch) {
+                event.target.setCustomValidity("Please enter a valid search");
+              } else {
+                event.target.setCustomValidity("");
+              }
+            }}
+            required
           />
-        </div>
+          <button
+            type="submit"
+            name="submit"
+            className={styles.searchButton}
+            onClick={(event) => {
+              event.preventDefault();
+
+              if (!formRef.current?.checkValidity()) {
+                formRef.current?.reportValidity();
+                return;
+              }
+              formRef.current.reset();
+              router.push(`/search/${query}`);
+
+              // router.push(`/search/${event.form?.search}`);
+            }}
+          >
+            <Image
+              src={SearchIcon}
+              alt="Search Icon"
+              width={24}
+              height={24}
+              className={styles.searchIcon}
+            />
+          </button>
+        </form>
       </AppBar>
       <Drawer
         sx={{
