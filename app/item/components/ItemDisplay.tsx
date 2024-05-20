@@ -1,7 +1,7 @@
 import Item from "../model";
 import styles from "./ItemDisplay.module.css";
 import ImageViewer from "./ImageViewer";
-import Divider from "../../components/Divider";
+import { Divider } from "@mui/material";
 type ItemDisplayProps = {
   item: Item;
   isGrid?: boolean;
@@ -34,7 +34,13 @@ function Details({ item, isGrid, isAbstract }: ItemDisplayProps) {
       }
     >
       <h4>{item.name}</h4>
-      <Divider width={10} height={1} thickness={2} color="#f7f7f7" />
+      <Divider
+        style={{
+          width: 10,
+          height: 1,
+          background: "#f7f7f7",
+        }}
+      />
       <h4>{item.price}</h4>
     </div>
   );

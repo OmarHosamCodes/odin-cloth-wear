@@ -1,19 +1,13 @@
-import { Assets } from "./model";
 import { firestore } from "../config/firebase";
 import {
   CollectionReference,
-  getDocs,
   Firestore,
   collection,
   doc,
   getDoc,
-  query,
-  orderBy,
-  limit,
   DocumentData,
   DocumentReference,
   updateDoc,
-  FieldValue,
 } from "firebase/firestore";
 
 class AssetsRepository {
@@ -24,7 +18,7 @@ class AssetsRepository {
 
   static collection = "admin";
 
-  static documnet = "assets";
+  static document = "assets";
 
   static instants = new AssetsRepository(firestore);
 
@@ -35,21 +29,23 @@ class AssetsRepository {
 
   static assetsDocument: DocumentReference<DocumentData, DocumentData> = doc(
     firestore,
-    `${AssetsRepository.collection}/${AssetsRepository.documnet}`
+    `${AssetsRepository.collection}/${AssetsRepository.document}`
   );
 
-  async getAssets(): Promise<Assets> {
+  async getOrder(): Promise<number> {
     const docSnap = await getDoc(AssetsRepository.assetsDocument);
     if (docSnap.exists()) {
-      return Assets.fromJson(docSnap.data());
+      return docSnap.data().order;
     } else {
-      return Assets.empty();
+      return 0;
     }
   }
-  async putOrder(): Promise<void> {
-    let assets = await this.getAssets();
-    updateDoc(AssetsRepository.assetsDocument, {
-      order: assets.order + 1,
+
+  async incrementOrder() {
+    const order = await this.getOrder();
+
+    await updateDoc(AssetsRepository.assetsDocument, {
+      order: order + 1,
     });
   }
 }

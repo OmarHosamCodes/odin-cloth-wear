@@ -2,10 +2,6 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: [
-            "img.icons8.com",
-            "via.placeholder.com",
-        ],
 
         remotePatterns: [
             {

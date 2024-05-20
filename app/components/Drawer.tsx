@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -33,7 +32,6 @@ const itemsFetch = cache(async () => {
     let response: Item[] = (await ItemRepository.instants.get()) as Item[];
     return response;
   } catch (error) {
-    console.error("Error fetching data:", error);
     return [];
   }
 });
@@ -131,16 +129,18 @@ export default function PersistentDrawerLeft() {
               width={24}
               height={24}
               className={styles.menuIcon}
+              loading="lazy"
             />
           </IconButton>
-
-          <Image
-            src={logoURL}
-            alt="Odin Cloth Wear Logo"
-            width={331 / 4}
-            height={208 / 4}
-            loading="lazy"
-          />
+          <Link href={"/"}>
+            <Image
+              src={logoURL}
+              alt="Odin Cloth Wear Logo"
+              width={331 / 4}
+              height={208 / 4}
+              loading="lazy"
+            />
+          </Link>
           <Link href={"/cart"}>
             <Image
               src={ShoppingCartIcon}
@@ -148,6 +148,7 @@ export default function PersistentDrawerLeft() {
               width={24}
               height={24}
               className={styles.shoppingCartIcon}
+              loading="lazy"
             />
           </Link>
         </Toolbar>
@@ -190,6 +191,7 @@ export default function PersistentDrawerLeft() {
               width={24}
               height={24}
               className={styles.searchIcon}
+              loading="lazy"
             />
           </button>
         </form>
@@ -231,6 +233,7 @@ export default function PersistentDrawerLeft() {
                 width={24}
                 height={24}
                 className={styles.homeIcon}
+                loading="lazy"
               />
             </ListItemIcon>
             <ListItemText primary={"Home"} style={{ cursor: "pointer" }} />
@@ -244,7 +247,7 @@ export default function PersistentDrawerLeft() {
                 width={24}
                 height={24}
                 className={styles.hotNowIcon}
-                color="#f0e68c"
+                loading="lazy"
               />
             </ListItemIcon>
             <ListItemText primary={"Hot Now"} />

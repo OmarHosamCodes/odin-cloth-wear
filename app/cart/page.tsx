@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CartItems from "./components/CartItems";
 import Checkout from "./components/Checkout";
 import styles from "./page.module.css";
@@ -9,7 +9,7 @@ import CartRepository from "./repository";
 import CartItemModel from "./model";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = React.useState<CartItemModel[]>([]);
+  const [cartItems, setCartItems] = useState<CartItemModel[]>([]);
 
   useEffect(() => {
     setCartItems(CartRepository.getCartItems());

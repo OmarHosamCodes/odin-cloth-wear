@@ -7,17 +7,21 @@ import styles from "./page.module.css";
 import CartItemModel from "../cart/model";
 import { useRouter } from "next/navigation";
 import { Divider } from "@mui/material";
+import CheckoutRepository from "./repository";
 
 export default function Checkout() {
   const router = useRouter();
   const [checkoutItems, setCheckoutItems] = useState<CartItemModel[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
 
   useEffect(() => {
     setCheckoutItems(CartRepository.getCartItems());
   }, []);
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const [open, setOpen] = useState(false);
 
   if (checkoutItems.length === 0) {
     return (
@@ -37,6 +41,7 @@ export default function Checkout() {
         required
         pattern="^[a-zA-Z\s]+$"
         onChange={(event) => {
+          setName(event.target.value);
           if (event.target.validity.patternMismatch) {
             event.target.setCustomValidity("Please enter a valid name");
           } else {
@@ -48,8 +53,9 @@ export default function Checkout() {
         type="tel"
         placeholder="Phone"
         required
-        pattern="^\d{11}$"
+        pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$"
         onChange={(event) => {
+          setPhone(event.target.value);
           if (event.target.validity.patternMismatch) {
             event.target.setCustomValidity("Please enter a valid phone number");
           } else {
@@ -61,8 +67,9 @@ export default function Checkout() {
         type="text"
         placeholder="Address"
         required
-        pattern="^[#.0-9a-zA-Z\s,-]+$"
+        pattern="^[a-zA-Z0-9_.-]*$"
         onChange={(event) => {
+          setAddress(event.target.value);
           if (event.target.validity.patternMismatch) {
             event.target.setCustomValidity("Please enter a valid address");
           } else {
@@ -75,7 +82,8 @@ export default function Checkout() {
         id="country"
         required
         onChange={(event) => {
-          if (event.target.validity.valueMissing) {
+          setCity(event.target.value);
+          if (event.target.value === "1") {
             event.target.setCustomValidity("Please select a country");
           } else {
             event.target.setCustomValidity("");
@@ -83,8 +91,8 @@ export default function Checkout() {
         }}
       >
         <option value="1">City</option>
-        <option value="2">USA</option>
-        <option value="3">Canada</option>
+        <option value="USA">USA</option>
+        <option value="Canada">Canada</option>
       </select>
       <CheckoutItems items={checkoutItems} />
 
@@ -100,10 +108,7 @@ export default function Checkout() {
             return;
           }
 
-          CartRepository.clearCart();
-
           formRef.current.reset();
-          // router.push("/success");
           setOpen(true);
         }}
       >
@@ -139,15 +144,16 @@ export default function Checkout() {
           />
           <div className={styles.total}>
             <text>Total</text>
-            <text>
-              {checkoutItems.reduce((acc, item) => acc + item.price, 0)}
-            </text>
-          </div>{" "}
+            <text>{CartItemModel.grandTotal(checkoutItems)}</text>
+          </div>
           <button
             className={styles.successButton}
-            onClick={() => router.push("/")}
+            onClick={() => {
+              CheckoutRepository.putOrder(name, phone, address, city);
+              router.push("/");
+            }}
           >
-            Go Home
+            Confirm And Go Home
           </button>
         </div>
       )}

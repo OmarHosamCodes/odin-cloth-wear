@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "Odin Cloth Wear",
   description: "Inspired by L.A street wear",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

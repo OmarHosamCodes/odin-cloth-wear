@@ -56,4 +56,12 @@ export default class CartItemModel {
     });
     return cartItems;
   }
+
+  total(): number {
+    return this.price * this.quantity;
+  }
+
+  static grandTotal(cartItems: CartItemModel[]): number {
+    return cartItems.reduce((acc, item) => acc + item.total(), 0);
+  }
 }

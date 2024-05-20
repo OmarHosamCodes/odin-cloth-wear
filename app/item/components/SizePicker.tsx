@@ -15,7 +15,6 @@ export default function SizePicker({
 }) {
   let sizes: string[] = item.sizes;
 
-  console.log(sizes);
   return (
     <div className={styles.sizesContainer}>
       {sizes.map((size, index) => {

@@ -47,24 +47,26 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
   return (
     <div {...handlers} className={styles.container}>
-      <div className={styles.imageContainer}>
-        {item.images.map((image: string, index: number) => (
-          <Image
-            key={index}
-            src={image}
-            alt={`Image ${index}`}
-            className={styles.image}
-            style={{ display: currentPage === index ? "block" : "none" }}
-            width={432}
-            height={649}
-            priority
-            onClick={() => {
-              if (disableNavigation) return;
-              router.push(`/item/${id}`);
-            }}
-          />
-        ))}
-      </div>
+      {item.images.map((image: string, index: number) => (
+        <Image
+          key={index}
+          src={image}
+          alt={`Image ${index}`}
+          className={styles.image}
+          style={{ display: currentPage === index ? "block" : "none" }}
+          width={432}
+          height={649}
+          priority
+          loader={({ src }) => {
+            return src;
+          }}
+          blurDataURL="../../../public/placeholder.png"
+          onClick={() => {
+            if (disableNavigation) return;
+            router.push(`/item/${id}`);
+          }}
+        />
+      ))}
       {showDetails && (
         <div className={styles.detailsContainer}>
           {item.images.map((_, index: number) => (

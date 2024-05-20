@@ -17,7 +17,6 @@ const itemFetch = cache(async (id: string) => {
     )) as ItemModel;
     return response;
   } catch (error) {
-    console.error("Error fetching data:", error);
     return null;
   }
 });

@@ -7,10 +7,8 @@ import {
   collection,
   doc,
   getDoc,
-  query,
-  orderBy,
-  limit,
 } from "firebase/firestore";
+import { LocalKey, LocalStorage } from "ts-localstorage";
 
 class ItemRepository {
   firestore: Firestore;
@@ -26,6 +24,11 @@ class ItemRepository {
     firestore,
     ItemRepository.collection
   );
+  private static _storage = LocalStorage;
+  public static get storage() {
+    return ItemRepository._storage;
+  }
+  static key = new LocalKey<string | null | undefined>("items", "");
 
   async getById(itemId: string | null): Promise<Item | null> {
     const itemDoc = doc(firestore, `${ItemRepository.collection}/${itemId}`);
@@ -36,7 +39,7 @@ class ItemRepository {
     return Item.fromJson(snapshot.data());
   }
 
-  async getByCategory(category: string, limitNumber?: number): Promise<Item[]> {
+  async getByCategory(category: string): Promise<Item[]> {
     const snapshot = await this.get();
     const items: Item[] = [];
     snapshot.forEach((item) => {
@@ -71,21 +74,40 @@ class ItemRepository {
       item.name.includes(name)
     );
     const uniqueItems = Array.from(new Set(filteredItems));
-    for (let i = 0; i < uniqueItems.length; i++) {
-      console.log(uniqueItems[i].id);
-    }
+
     return uniqueItems;
   }
 
   async get(): Promise<Item[]> {
-    const itemsCollection = ItemRepository.itemsCollection;
-    const snapshot = await getDocs(itemsCollection);
-    console.log(snapshot);
-    const items: Item[] = [];
-    snapshot.forEach((doc) => {
-      items.push(Item.fromJson(doc.data()));
-    });
-    return items;
+    const itemsFromCache = ItemRepository.storage.getItem(ItemRepository.key);
+
+    if (itemsFromCache) {
+      return JSON.parse(itemsFromCache);
+    } else {
+      const snapshot = await getDocs(ItemRepository.itemsCollection);
+      const itemsFromDB: Item[] = [];
+      snapshot.forEach((doc) => {
+        itemsFromDB.push(Item.fromJson(doc.data()));
+      });
+
+      ItemRepository.storage.setItem(
+        ItemRepository.key,
+        JSON.stringify(itemsFromDB)
+      );
+      return itemsFromDB;
+    }
+  }
+
+  static async getItems(): Promise<Item[]> {
+    return await this.instants.get();
+  }
+
+  private static _items: Item[] = [];
+  public static get items(): Item[] {
+    return ItemRepository._items;
+  }
+  public static set items(value: Item[]) {
+    ItemRepository._items = value;
   }
 }
 

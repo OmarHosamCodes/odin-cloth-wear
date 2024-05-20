@@ -3,9 +3,9 @@
 import ItemsDisplay from "./item/components/ItemsDisplay";
 import PersistentDrawerLeft from "./components/Drawer";
 import ContactInfo from "./components/ContactInfo";
-import { cache, use, useEffect, useState } from "react";
+import { cache, useEffect, useState } from "react";
 import LazySosan from "./components/LazySosan";
-import Splash from "./splash/splash";
+import Splash from "./components/splash";
 import Item from "./item/model";
 import ItemRepository from "./item/repository";
 const itemsFetch = cache(async () => {
@@ -13,7 +13,6 @@ const itemsFetch = cache(async () => {
     let response: Item[] = (await ItemRepository.instants.get()) as Item[];
     return response;
   } catch (error) {
-    console.error("Error fetching data:", error);
     return [];
   }
 });
@@ -30,20 +29,18 @@ export default function Home() {
       setItems(items);
     });
   }, []);
-
-  if (loading) {
-    return <Splash loading={loading} handleLoading={handleLoading} />;
+  if (loading || items.length === 0) {
+    return <Splash handleLoading={handleLoading} loading={false} />;
+  } else {
+    return (
+      <>
+        <PersistentDrawerLeft />
+        <main>
+          <LazySosan items={items} />
+          <ItemsDisplay items={items} />
+          <ContactInfo />
+        </main>
+      </>
+    );
   }
-
-  return (
-    <>
-      <PersistentDrawerLeft />
-
-      <main>
-        <LazySosan />
-        <ItemsDisplay items={items} />
-        <ContactInfo />
-      </main>
-    </>
-  );
 }

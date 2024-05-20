@@ -114,6 +114,13 @@ class Item {
   static filterItemsByCategory(items: Item[], category: string): Item[] {
     return items.filter((item) => item.category === category);
   }
+  static cartItemsFromJson(json: any): Item[] {
+    let cartItems: Item[] = [];
+    json.map((item: any) => {
+      cartItems.push(Item.fromJson(item));
+    });
+    return cartItems;
+  }
 }
 
 export default Item;

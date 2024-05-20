@@ -1,14 +1,8 @@
 .container {
   position: relative;
   text-align: center;
-  max-width: 100vw;
-}
-
-.imageContainer {
-  display: inline-block;
-  position: relative;
-  /* aspect-ratio: 2/3; */
-  background-size: contain;
+  max-width: 100%;
+  width: 100%;
 }
 
 .image {
@@ -22,7 +16,9 @@
   box-shadow: #0f0f0f 0px 0px 10px;
   aspect-ratio: 2/3;
   width: 100%;
-  height: 100%;
+  height: auto;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .detailsContainer {

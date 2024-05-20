@@ -16,7 +16,7 @@ export default function ColorPicker({
 }) {
   let colors: string[] = item.colors.map((e) => convertColor(e));
 
-  console.log(colors);
+ 
 
   return (
     <div className={styles.colorsContainer}>

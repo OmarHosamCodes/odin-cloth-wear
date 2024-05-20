@@ -1,7 +1,6 @@
-"use client";
-
 import CartItemModel from "./model";
 import { LocalKey, LocalStorage } from "ts-localstorage";
+
 export default class CartRepository {
   private static _storage = LocalStorage;
   public static get storage() {

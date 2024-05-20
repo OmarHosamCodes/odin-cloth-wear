@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import PersistentDrawerLeft from "@/app/components/Drawer";
+import ProgressBar from "@/app/components/ProgressBar";
 import ItemsDisplay from "@/app/item/components/ItemsDisplay";
 import Item from "@/app/item/model";
 import ItemRepository from "@/app/item/repository";
@@ -13,7 +15,6 @@ const itemsFetch = cache(async (query: string) => {
     )) as Item[];
     return response;
   } catch (error) {
-    console.error("Error fetching data:", error);
     return [];
   }
 });
@@ -25,7 +26,6 @@ const suggestedItemsFetch = cache(async () => {
     )) as Item[];
     return response;
   } catch (error) {
-    console.error("Error fetching data:", error);
     return [];
   }
 });
@@ -35,7 +35,6 @@ export default function Search({ params }: { params: { query: string } }) {
   const [suggestedItems, setSuggestedItems] = useState<Item[]>([]);
   useEffect(() => {
     const query = decodeURI(params.query);
-    console.log(query);
     itemsFetch(query).then((items) => {
       setItems(items);
     });
@@ -45,19 +44,24 @@ export default function Search({ params }: { params: { query: string } }) {
   }, []);
 
   if (items.length === 0) {
-    return <div>No Items Found</div>;
+    return <ProgressBar />;
   }
 
   return (
     <>
+      <PersistentDrawerLeft />
       <ItemsDisplay items={items} />
-      <Divider
-        style={{
-          width: "100%",
-          height: 1,
-          color: "#0f0f0f",
-        }}
-      />
+      <>
+        <h1>Hot Now</h1>
+        <Divider
+          style={{
+            width: "100%",
+            height: 5,
+            background: "#0f0f0f",
+          }}
+        />
+      </>
+
       <ItemsDisplay items={suggestedItems} isGrid={true} isAbstract={true} />
     </>
   );
