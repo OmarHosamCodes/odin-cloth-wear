@@ -1,4 +1,3 @@
-"use client";
 import Item from "../model";
 import styles from "./Sizing.module.css";
 

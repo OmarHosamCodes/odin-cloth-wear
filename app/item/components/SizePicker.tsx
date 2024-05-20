@@ -1,5 +1,3 @@
-"use client";
-import { useState } from "react";
 import Item from "../model";
 
 import styles from "./SizePicker.module.css";

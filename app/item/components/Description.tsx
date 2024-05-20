@@ -1,5 +1,4 @@
 "use client";
-import Divider from "@/app/components/Divider";
 import Item from "../model";
 import styles from "./Description.module.css";
 

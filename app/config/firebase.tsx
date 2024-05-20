@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 import {
-  Firestore,
-  getFirestore,
   initializeFirestore,
   CACHE_SIZE_UNLIMITED,
   memoryLocalCache,

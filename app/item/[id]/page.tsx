@@ -4,7 +4,7 @@ import ItemRepository from "../repository";
 import ColorPicker from "../components/ColorPicker";
 import SizePicker from "../components/SizePicker";
 import AddToCart from "../components/AddToCart";
-import Description from "../components/Desctiption";
+import Description from "../components/Description";
 import Sizing from "../components/Sizing";
 import { cache, useEffect, useState } from "react";
 import styles from "./page.module.css";
