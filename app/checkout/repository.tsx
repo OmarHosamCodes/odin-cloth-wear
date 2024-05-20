@@ -18,6 +18,18 @@ export default class CheckoutRepository {
     firestore,
     CheckoutRepository.collection
   );
+  static makeid(length) {
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
   static async putOrder(
     address: string,
     governorates: string,
@@ -28,9 +40,9 @@ export default class CheckoutRepository {
 
     const mail = new Mail(
       address,
-      Math.random().toString(36).substring(7),
+      this.makeid(16),
       governorates,
-      ((await AssetsRepository.instants.getOrder()) + 1).toString(),
+      this.makeid(8),
       items,
       name,
       phone,

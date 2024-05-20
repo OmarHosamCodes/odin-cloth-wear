@@ -29,7 +29,7 @@ export default function Home() {
       setItems(items);
     });
   }, []);
-  if (loading || items.length === 0) {
+  if (loading) {
     return <Splash handleLoading={handleLoading} loading={false} />;
   } else {
     return (
