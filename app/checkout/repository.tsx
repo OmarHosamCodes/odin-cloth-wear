@@ -18,7 +18,7 @@ export default class CheckoutRepository {
     firestore,
     CheckoutRepository.collection
   );
-  static makeid(length) {
+  static makeid(length: number) {
     let result = "";
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

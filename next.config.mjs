@@ -9,11 +9,16 @@ const nextConfig = {
                 hostname: "firebasestorage.googleapis.com",
                 port: "",
                 pathname: "/**"
+            },
+            {
+                protocol: 'https',
+                hostname: "img.icons8.com",
+                port: "",
+                pathname: "/**"
             }
         ]
     },
-    // fs: false,
-    // webpack5: true,
+
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.fallback.fs = false
