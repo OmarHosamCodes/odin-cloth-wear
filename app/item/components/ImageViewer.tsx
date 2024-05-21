@@ -12,14 +12,16 @@ interface ImageViewerProps {
   showDetails?: boolean;
   id: string;
   disableNavigation?: boolean;
+  width?: string;
 }
 
-const ImageViewer: React.FC<ImageViewerProps> = ({
+export default function ImageViewer({
   item,
   showDetails = true,
   id,
   disableNavigation = false,
-}) => {
+  width = "100%",
+}: ImageViewerProps) {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -46,7 +48,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   };
 
   return (
-    <div {...handlers} className={styles.container}>
+    <div {...handlers} className={styles.container} style={{ width: width }}>
       {item.images.map((image: string, index: number) => (
         <Image
           key={index}
@@ -82,6 +84,4 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
       )}
     </div>
   );
-};
-
-export default ImageViewer;
+}

@@ -8,8 +8,9 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import Mail from "./model";
+import Mail, { MailModel } from "./model";
 import AssetsRepository from "../assets/repository";
+import CartItemModel from "../cart/model";
 
 export default class CheckoutRepository {
   firestore: Firestore = firestore;
@@ -30,26 +31,39 @@ export default class CheckoutRepository {
     }
     return result;
   }
+  static makeNumberid(length: number) {
+    let result = "";
+    const characters = "0123456789";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
   static async putOrder(
     address: string,
     governorates: string,
     name: string,
-    phone: string
+    phone: string,
+    total: number
   ) {
     let items = CartRepository.getCartItems();
 
-    const mail = new Mail(
-      address,
-      this.makeid(16),
-      governorates,
-      this.makeid(8),
-      items,
-      name,
-      phone,
-      items.reduce((acc, item) => acc + item.total(), 0)
-    );
+    const mail = {
+      address: address,
+      docID: this.makeid(21),
+      governorates: governorates,
+      id: this.makeNumberid(4),
+      items: CartItemModel.toListJson(items),
+      name: name,
+      phone: phone,
+      total: total,
+    };
+
     const mailDoc = doc(this.mailCollection, mail.docID);
-    await setDoc(mailDoc, mail.toJson());
+    await setDoc(mailDoc, mail);
     await AssetsRepository.instants.incrementOrder();
     CartRepository.clearCart();
   }

@@ -72,7 +72,20 @@
 
 .shoppingCartIcon,
 .menuIcon,
-.homeIcon {
+.homeIcon,
+.funnelIcon {
   filter: invert(98%) sepia(7%) saturate(200%) hue-rotate(296deg)
     brightness(115%) contrast(88%);
+}
+
+.category {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.drawer::-webkit-scrollbar {
+  display: none;
 }

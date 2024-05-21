@@ -57,11 +57,15 @@ export default class CartItemModel {
     return cartItems;
   }
 
-  total(): number {
-    return this.price * this.quantity;
+  static toListJson(cartItems: CartItemModel[]): any {
+    let list: any = [];
+    cartItems.map((item) => {
+      list.push(item.toJson());
+    });
+    return list;
   }
 
-  static grandTotal(cartItems: CartItemModel[]): number {
-    return cartItems.reduce((acc, item) => acc + item.total(), 0);
+  total(): number {
+    return this.price * this.quantity;
   }
 }

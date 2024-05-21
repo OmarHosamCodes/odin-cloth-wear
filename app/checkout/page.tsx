@@ -8,6 +8,7 @@ import CartItemModel from "../cart/model";
 import { useRouter } from "next/navigation";
 import { Divider } from "@mui/material";
 import CheckoutRepository from "./repository";
+import Mail from "./model";
 
 export default function Checkout() {
   const router = useRouter();
@@ -18,10 +19,15 @@ export default function Checkout() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [deliveryCost, setDeliveryCost] = useState(0);
 
   useEffect(() => {
     setCheckoutItems(CartRepository.getCartItems());
   }, []);
+
+  useEffect(() => {
+    setDeliveryCost(Mail.getDeliveryCost(city));
+  }, [city]);
 
   if (checkoutItems.length === 0) {
     return (
@@ -67,7 +73,6 @@ export default function Checkout() {
         type="text"
         placeholder="Address"
         required
-        pattern="^[a-zA-Z0-9_.-]*$"
         onChange={(event) => {
           setAddress(event.target.value);
           if (event.target.validity.patternMismatch) {
@@ -83,16 +88,39 @@ export default function Checkout() {
         required
         onChange={(event) => {
           setCity(event.target.value);
-          if (event.target.value === "1") {
-            event.target.setCustomValidity("Please select a country");
+          if (event.target.value === "none") {
+            event.target.setCustomValidity("Please select a governorate");
           } else {
             event.target.setCustomValidity("");
           }
         }}
       >
-        <option value="1">City</option>
-        <option value="USA">USA</option>
-        <option value="Canada">Canada</option>
+        <option value="none">City</option>
+        <option value="Cairo">Cairo</option>
+        <option value="Alexandria">Alexandria</option>
+        <option value="Dakahlia">Dakahlia</option>
+        <option value="Red Sea">Red Sea</option>
+        <option value="Beheira">Beheira</option>
+        <option value="Fayoum">Fayoum</option>
+        <option value="Gharbiya">Gharbiya</option>
+        <option value="Ismailia">Ismailia</option>
+        <option value="Menofia">Menofia</option>
+        <option value="Minya">Minya</option>
+        <option value="Qaliubiya">Qaliubiya</option>
+        <option value="New Valley">New Valley</option>
+        <option value="Suez">Suez</option>
+        <option value="Aswan">Aswan</option>
+        <option value="Assiut">Assiut</option>
+        <option value="Beni Suef">Beni Suef</option>
+        <option value="Port Said">Port Said</option>
+        <option value="Damietta">Damietta</option>
+        <option value="Sharkia">Sharkia</option>
+        <option value="South Sinai">South Sinai</option>
+        <option value="Kafr Al sheikh">Kafr Al sheikh</option>
+        <option value="Matrouh">Matrouh</option>
+        <option value="Luxor">Luxor</option>
+        <option value="Qena">Qena</option>
+        <option value="North Sinai">North Sinai</option>
       </select>
       <CheckoutItems items={checkoutItems} />
 
@@ -143,17 +171,37 @@ export default function Checkout() {
             }}
           />
           <div className={styles.total}>
+            <text>Delivery</text>
+            <text>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "EGP",
+              }).format(deliveryCost)}
+            </text>
+          </div>
+          <div className={styles.total}>
             <text>Total</text>
-            <text>{CartItemModel.grandTotal(checkoutItems)}</text>
+            <text>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "EGP",
+              }).format(Mail.getGrandTotal(checkoutItems, city))}
+            </text>
           </div>
           <button
             className={styles.successButton}
             onClick={() => {
-              CheckoutRepository.putOrder(name, phone, address, city);
+              CheckoutRepository.putOrder(
+                address,
+                city,
+                name,
+                phone,
+                Mail.getGrandTotal(checkoutItems, city)
+              );
               router.push("/");
             }}
           >
-            Confirm And Go Home
+            Confirm
           </button>
         </div>
       )}

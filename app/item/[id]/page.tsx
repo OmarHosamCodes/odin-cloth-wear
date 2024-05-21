@@ -10,6 +10,7 @@ import { cache, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import ItemModel from "../model";
 import PersistentDrawerLeft from "@/app/components/Drawer";
+import ProgressBar from "@/app/components/ProgressBar";
 const itemFetch = cache(async (id: string) => {
   try {
     let response: ItemModel = (await ItemRepository.instants.getById(
@@ -31,13 +32,18 @@ export default function Item({ params }: { params: { id: string } }) {
     });
   }, [params.id]);
   if (!item) {
-    return <div>Loading...</div>;
+    return <ProgressBar/>;
   }
   return (
     <>
       <PersistentDrawerLeft />
       <div className={styles.content}>
-        <ImageViewer item={item!} id={params.id} disableNavigation={true} />
+        <ImageViewer
+          item={item!}
+          id={params.id}
+          disableNavigation={true}
+          width="auto"
+        />
         <div className={styles.details}>
           <h1>{item?.name}</h1>
           <p>{item?.category}</p>

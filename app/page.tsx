@@ -30,7 +30,7 @@ export default function Home() {
     });
   }, []);
   if (loading) {
-    return <Splash handleLoading={handleLoading} loading={false} />;
+    return <Splash handleLoading={handleLoading} loading={loading} />;
   } else {
     return (
       <>

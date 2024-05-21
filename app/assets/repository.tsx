@@ -48,6 +48,31 @@ class AssetsRepository {
       order: order + 1,
     });
   }
+
+  async getCategories(): Promise<Category[]> {
+    const docSnap = await getDoc(AssetsRepository.assetsDocument);
+    if (docSnap.exists()) {
+      return docSnap.data().categories.map((category: any) => {
+        return new Category(category.name, category.subCategories);
+      });
+    } else {
+      return [];
+    }
+  }
+}
+
+export class Category {
+  name: string;
+  subCategories: string[];
+
+  constructor(name: string, subCategories: string[]) {
+    this.name = name;
+    this.subCategories = subCategories;
+  }
+
+  fromJson(json: any): Category {
+    return new Category(json.name, json.subCategories);
+  }
 }
 
 export default AssetsRepository;

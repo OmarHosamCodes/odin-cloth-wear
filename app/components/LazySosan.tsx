@@ -6,7 +6,7 @@ export default function LazySosan({ items }: { items: Item[] }) {
   const dublicatedItems = [...items, ...items];
 
   if (items.length === 0) {
-    return <div>Loading...</div>;
+    return <div className={styles.container}></div>;
   }
   return (
     <div className={styles.container}>

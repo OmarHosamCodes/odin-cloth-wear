@@ -20,16 +20,27 @@ import FlashkIcon from "../../public/flash.svg";
 import SearchIcon from "../../public/search-outline.svg";
 import ShoppingCartIcon from "../../public/shopping-cart.svg";
 import MenuIcon from "../../public/menu-2.svg";
+import FunnelIcon from "../../public/funnel.svg";
 import { HotNowShowcase } from "./HotNow";
 import ItemRepository from "../item/repository";
 import Item from "../item/model";
 import { useRouter } from "next/navigation";
 import { cache, useEffect, useRef, useState } from "react";
+import AssetsRepository, { Category } from "../assets/repository";
 const drawerWidth = 240;
 
 const itemsFetch = cache(async () => {
   try {
     let response: Item[] = (await ItemRepository.instants.get()) as Item[];
+    return response;
+  } catch (error) {
+    return [];
+  }
+});
+
+const categoriesFetch = cache(async () => {
+  try {
+    let response: Category[] = await AssetsRepository.instants.getCategories();
     return response;
   } catch (error) {
     return [];
@@ -91,12 +102,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const router = useRouter();
   const [items, setItems] = useState<Item[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [query, setQuery] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     itemsFetch().then((items) => {
       setItems(items);
+    });
+    categoriesFetch().then((categories) => {
+      setCategories(categories);
     });
   }, []);
 
@@ -113,7 +128,7 @@ export default function PersistentDrawerLeft() {
     "https://firebasestorage.googleapis.com/v0/b/odin-cloth-wear-sever-dev.appspot.com/o/admin%2Fassets%2Fnobglogowhite.png?alt=media&token=5633e5d7-cb3f-40e7-8677-1b6afa135fab";
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} className={styles.drawer}>
       <AppBar open={open} className={styles.appbarContainer}>
         <Toolbar className={styles.appbarHeader}>
           <IconButton
@@ -205,7 +220,13 @@ export default function PersistentDrawerLeft() {
             boxSizing: "border-box",
             backgroundColor: "#0f0f0f",
             color: "#f0f0f0",
+            scrollbarColor: "#f0f0f0 #0f0f0f",
+            scrollbarArrowColor: "#f0f0f0",
+            scrollbarWidth: "thin",
           },
+          scrollbarColor: "#f0f0f0 #0f0f0f",
+          scrollbarArrowColor: "#f0f0f0",
+          scrollbarWidth: "thin",
         }}
         variant="persistent"
         anchor="left"
@@ -238,6 +259,41 @@ export default function PersistentDrawerLeft() {
             </ListItemIcon>
             <ListItemText primary={"Home"} style={{ cursor: "pointer" }} />
           </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <Image
+                src={FunnelIcon}
+                alt="Funnel Icon"
+                width={24}
+                height={24}
+                className={styles.funnelIcon}
+                loading="lazy"
+              />
+            </ListItemIcon>
+            <ListItemText primary={"Categories"} />
+          </ListItem>
+          <div className={styles.categories}>
+            {categories.map((category, index) => (
+              <ListItem
+                key={index}
+                onClick={() => router.push(`/search/${category.name}`)}
+                style={{ cursor: "pointer" }}
+                className={styles.category}
+              >
+                <ListItemText
+                  primary={category.name}
+                  style={{ cursor: "pointer" }}
+                />
+              </ListItem>
+            ))}
+          </div>
+          <Divider
+            style={{
+              width: "100%",
+              height: 3,
+              background: "#f0f0f0ce",
+            }}
+          />
 
           <ListItem>
             <ListItemIcon>

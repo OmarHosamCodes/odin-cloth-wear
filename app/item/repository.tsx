@@ -78,6 +78,17 @@ class ItemRepository {
     return uniqueItems;
   }
 
+  async getByQuery(query: string): Promise<Item[]> {
+    const searchQuery = new Set<Item>();
+
+    const nameQuery = await this.getByName(query);
+    const categoryQuery = await this.getByCategory(query);
+
+    const uniqueItems = Array.from(new Set([...nameQuery, ...categoryQuery]));
+
+    return uniqueItems;
+  }
+
   async get(): Promise<Item[]> {
     const itemsFromCache = ItemRepository.storage.getItem(ItemRepository.key);
 

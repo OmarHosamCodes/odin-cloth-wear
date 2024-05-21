@@ -10,7 +10,7 @@ import { cache, useEffect, useState } from "react";
 
 const itemsFetch = cache(async (query: string) => {
   try {
-    let response: Item[] = (await ItemRepository.instants.getByName(
+    let response: Item[] = (await ItemRepository.instants.getByQuery(
       query
     )) as Item[];
     return response;
@@ -31,7 +31,7 @@ const suggestedItemsFetch = cache(async () => {
 });
 
 export default function Search({ params }: { params: { query: string } }) {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[] | null>(null);
   const [suggestedItems, setSuggestedItems] = useState<Item[]>([]);
   useEffect(() => {
     const query = decodeURI(params.query);
@@ -43,8 +43,36 @@ export default function Search({ params }: { params: { query: string } }) {
     });
   }, []);
 
-  if (items.length === 0) {
+  if (!items) {
     return <ProgressBar />;
+  } else if (items.length === 0) {
+    return (
+      <>
+        <PersistentDrawerLeft />
+        <h1
+          style={{
+            textAlign: "center",
+            margin: "100px",
+            fontSize: "2rem",
+            color: "#0f0f0f",
+          }}
+        >
+          Sorry, no items found for {decodeURI(params.query)}
+        </h1>
+        <>
+          <h1>Hot Now</h1>
+          <Divider
+            style={{
+              width: "100%",
+              height: 5,
+              background: "#0f0f0f",
+            }}
+          />
+        </>
+
+        <ItemsDisplay items={suggestedItems} isGrid={true} isAbstract={true} />
+      </>
+    );
   }
 
   return (
