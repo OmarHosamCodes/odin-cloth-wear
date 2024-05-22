@@ -259,7 +259,7 @@ export default function PersistentDrawerLeft() {
             </ListItemIcon>
             <ListItemText primary={"Home"} style={{ cursor: "pointer" }} />
           </ListItem>
-          <ListItem>
+          {/* <ListItem>
             <ListItemIcon>
               <Image
                 src={FunnelIcon}
@@ -293,7 +293,7 @@ export default function PersistentDrawerLeft() {
               height: 3,
               background: "#f0f0f0ce",
             }}
-          />
+          /> */}
 
           <ListItem>
             <ListItemIcon>
