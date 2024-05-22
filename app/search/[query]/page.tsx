@@ -7,7 +7,7 @@ import Item from "@/app/item/model";
 import ItemRepository from "@/app/item/repository";
 import { Divider } from "@mui/material";
 import { cache, useEffect, useState } from "react";
-
+import styles from "./page.module.css";
 const itemsFetch = cache(async (query: string) => {
   try {
     let response: Item[] = (await ItemRepository.instants.getByQuery(
@@ -49,14 +49,7 @@ export default function Search({ params }: { params: { query: string } }) {
     return (
       <>
         <PersistentDrawerLeft />
-        <h1
-          style={{
-            textAlign: "center",
-            margin: "100px",
-            fontSize: "2rem",
-            color: "#0f0f0f",
-          }}
-        >
+        <h1 style={{}} className={styles.sorry}>
           Sorry, no items found for {decodeURI(params.query)}
         </h1>
         <>

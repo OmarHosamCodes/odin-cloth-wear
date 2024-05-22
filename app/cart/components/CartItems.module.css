@@ -1,11 +1,3 @@
-.cartEmpty {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.5rem;
-  color: #0f0f0f;
-}
 .cartItems {
   display: flex;
   flex-direction: column;

@@ -3,13 +3,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 10px;
+  gap: 10px;
 }
 
 .colorContainer {
   display: inline-flex;
   /* flex-wrap: initial; */
   justify-content: center;
-
   border-radius: 100px;
   transition: all 0.3s;
 }

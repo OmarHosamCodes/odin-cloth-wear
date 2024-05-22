@@ -9,16 +9,6 @@ export default function Checkout({
 }) {
   const router = useRouter();
 
-  if (cartItems.length == 0) {
-    return (
-      <button
-        className={styles.continueShoppingButton}
-        onClick={() => router.push("/")}
-      >
-        Continue Shopping
-      </button>
-    );
-  }
   return (
     <button
       className={styles.checkoutButton}

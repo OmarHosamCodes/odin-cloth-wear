@@ -82,9 +82,10 @@
 }
 .modal {
   position: fixed;
-  display: block;
+  /* display: flex; */
+  overflow-y: scroll;
   width: 100%;
-  height: 50%;
+  height: 80%;
   left: 0;
   right: 0;
   bottom: 0;
@@ -94,6 +95,12 @@
   cursor: pointer;
   animation: slideIn 0.5s forwards;
   border-radius: 10px 10px 0 0;
+  gap: 10px;
+}
+
+.modal::-webkit-scrollbar {
+  scrollbar-color: #f0f0f0 #0f0f0f;
+  scrollbar-width: thin;
 }
 
 .modalContent {
@@ -104,7 +111,7 @@
   border-radius: 5px;
   padding: 5px;
   width: 50%;
-
+  gap: 10px;
   margin-bottom: 5px;
 }
 .colorAndPrice {
@@ -124,6 +131,8 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .successButton {

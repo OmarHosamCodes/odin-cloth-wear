@@ -5,10 +5,13 @@ import styles from "./CartItem.module.css";
 import trashIcon from "../../../public/trash.svg";
 import { useState } from "react";
 import CartRepository from "../repository";
+import { useRouter } from "next/navigation";
 
 export default function CartItem({ cartItem }: { cartItem: CartItemModel }) {
   const [quantity, setQuantity] = useState<number>(cartItem.quantity);
   const [visible, setVisible] = useState<boolean>(true);
+
+  const router = useRouter();
   const increment = () => {
     setQuantity(quantity + 1);
 
@@ -23,8 +26,11 @@ export default function CartItem({ cartItem }: { cartItem: CartItemModel }) {
   };
 
   const removeItem = () => {
-    // setVisible(false);
+    setVisible(false);
     CartRepository.removeCartItem(cartItem.id);
+    if (CartRepository.getCartItems().length === 0) {
+      window.location.reload();
+    }
   };
 
   if (!visible) {

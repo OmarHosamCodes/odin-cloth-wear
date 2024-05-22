@@ -4,6 +4,7 @@
   justify-content: space-between;
   margin: 10px;
   transition: all 0.3s;
+  gap: 10px;
 }
 
 .sizeContainer {

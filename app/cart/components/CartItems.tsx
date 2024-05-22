@@ -7,10 +7,6 @@ export default function CartItems({
 }: {
   cartItems: CartItemModel[];
 }) {
-  if (cartItems.length === 0) {
-    return <h3 className={styles.cartEmpty}>Cart is empty</h3>;
-  }
-
   return (
     <div className={styles.cartItems}>
       {cartItems.map((model) => (

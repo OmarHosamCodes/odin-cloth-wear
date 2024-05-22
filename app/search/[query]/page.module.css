@@ -1,0 +1,18 @@
+.sorry {
+  font-size: 2rem;
+  color: #0f0f0f;
+  text-align: center;
+  margin: 100px;
+}
+
+@media (max-width: 768px) {
+  .sorry {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sorry {
+    font-size: 1rem;
+  }
+}
