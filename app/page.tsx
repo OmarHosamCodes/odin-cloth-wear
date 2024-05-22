@@ -28,6 +28,10 @@ export default function Home() {
     itemsFetch().then((items) => {
       setItems(items);
     });
+
+    return () => {
+      ItemRepository.storage.removeItem(ItemRepository.key);
+    };
   }, []);
   if (loading) {
     return <Splash handleLoading={handleLoading} loading={loading} />;

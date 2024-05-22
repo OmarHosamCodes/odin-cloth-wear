@@ -1,9 +1,8 @@
-.cartItems {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  /* justify-content: center; */
+.checkoutItems {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: auto;
   gap: 1rem;
   padding: 1rem;
   width: 100%;

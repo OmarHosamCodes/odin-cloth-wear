@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./ContactInfo.module.css"; // Import your CSS file for styling
 import Link from "next/link";
-import { Assets, Social } from "../assets/model";
-import AssetsRepository from "../assets/repository";
+import { Social } from "../assets/model";
 import Image from "next/image";
+import OHLogo from "@/public/oh-logo.ico";
 
 function ContactInfo() {
   return (
@@ -40,6 +40,15 @@ function ContactInfo() {
           </div>
         </div>
       </div>
+      <a
+        className={styles.madeBy}
+        href="https://omarhosamcodes.com"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <h6>Made By</h6>
+        <Image src={OHLogo} alt={"Omar Hosam Codes"} width={20} height={20} />
+      </a>
     </div>
   );
 }
