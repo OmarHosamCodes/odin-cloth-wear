@@ -1,15 +1,19 @@
+"use client";
 import CartItemModel from "./model";
-import { LocalKey, LocalStorage } from "ts-localstorage";
 
 export default class CartRepository {
-  private static _storage = LocalStorage;
+  //@ts-ignore
+  private static _storage =
+    typeof window !== "undefined" ? sessionStorage : null;
   public static get storage() {
     return CartRepository._storage;
   }
-  static key = new LocalKey<string | null | undefined>("cartItems", "");
-
+  static key = "cartItems";
   static getCartItems(): CartItemModel[] {
-    const items = this.storage.getItem(this.key);
+    let items;
+    if (typeof window !== "undefined") {
+      items = this.storage!.getItem(this.key);
+    }
     if (items) {
       return CartItemModel.cartItemsFromJson(JSON.parse(items));
     }
@@ -23,13 +27,17 @@ export default class CartRepository {
     }
 
     items.push(item);
-    this.storage.setItem(this.key, JSON.stringify(items));
+    if (typeof window !== "undefined") {
+      this.storage!.setItem(this.key, JSON.stringify(items));
+    }
   }
 
   static removeCartItem(id: string) {
     const items = this.getCartItems();
     const newItems = items.filter((item) => item.id !== id);
-    this.storage.setItem(this.key, JSON.stringify(newItems));
+    if (typeof window !== "undefined") {
+      this.storage!.setItem(this.key, JSON.stringify(newItems));
+    }
   }
 
   static updateCartItem(id: string, quantity: number) {
@@ -40,7 +48,9 @@ export default class CartRepository {
       }
       return item;
     });
-    this.storage.setItem(this.key, JSON.stringify(newItems));
+    if (typeof window !== "undefined") {
+      this.storage!.setItem(this.key, JSON.stringify(newItems));
+    }
   }
 
   static getCartItem(id: string): CartItemModel | undefined {
@@ -49,6 +59,8 @@ export default class CartRepository {
   }
 
   static clearCart() {
-    this.storage.setItem(this.key, JSON.stringify([]));
+    if (typeof window !== "undefined") {
+      this.storage!.setItem(this.key, JSON.stringify([]));
+    }
   }
 }

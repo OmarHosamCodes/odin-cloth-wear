@@ -32,7 +32,7 @@ export default function Checkout() {
   if (checkoutItems.length === 0) {
     return (
       <div className={styles.errorLayout}>
-        <text className={styles.errorText}>No Items To Checkout!</text>
+        <h3 className={styles.errorText}>No Items To Checkout!</h3>
 
         <button className={styles.errorButton}>Go Home</button>
       </div>
@@ -151,9 +151,9 @@ export default function Checkout() {
           {checkoutItems.map((item) => {
             return (
               <div key={item.id} className={styles.modalContent}>
-                <text>{item.name}</text>
+                <h3>{item.name}</h3>
                 <div className={styles.colorAndPrice}>
-                  <text>{item.price}</text>
+                  <h3>{item.price}</h3>
                   <div
                     className={styles.color}
                     style={{ backgroundColor: item.color }}
@@ -171,22 +171,22 @@ export default function Checkout() {
             }}
           />
           <div className={styles.total}>
-            <text>Delivery</text>
-            <text>
+            <h3>Delivery</h3>
+            <h3>
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "EGP",
               }).format(deliveryCost)}
-            </text>
+            </h3>
           </div>
           <div className={styles.total}>
-            <text>Total</text>
-            <text>
+            <h3>Total</h3>
+            <h3>
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "EGP",
               }).format(Mail.getGrandTotal(checkoutItems, city))}
-            </text>
+            </h3>
           </div>
           <button
             className={styles.successButton}

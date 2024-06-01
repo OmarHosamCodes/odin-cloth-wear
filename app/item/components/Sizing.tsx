@@ -34,15 +34,6 @@ export default function Sizing({ item }: { item: Item }) {
         </thead>
         <tbody>{getRows()}</tbody>
       </table>
-      <div className={styles.logo}>
-        {/* <Image
-          src="assets/logo.png"
-          alt="Logo"
-          // style={{ width: "60px", height: "60px" }}
-          width={60}
-          height={60}
-        /> */}
-      </div>
     </div>
   );
 }

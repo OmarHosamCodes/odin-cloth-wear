@@ -63,7 +63,12 @@ export default function Search({ params }: { params: { query: string } }) {
           />
         </>
 
-        <ItemsDisplay items={suggestedItems} isGrid={true} isAbstract={true} />
+        <ItemsDisplay
+          items={suggestedItems}
+          isGrid={true}
+          isAbstract={true}
+          isSwipable={false}
+        />
       </>
     );
   }
@@ -71,7 +76,7 @@ export default function Search({ params }: { params: { query: string } }) {
   return (
     <>
       <PersistentDrawerLeft />
-      <ItemsDisplay items={items} />
+      <ItemsDisplay items={items} isSwipable={true} />
       <>
         <h1>Hot Now</h1>
         <Divider
@@ -83,7 +88,12 @@ export default function Search({ params }: { params: { query: string } }) {
         />
       </>
 
-      <ItemsDisplay items={suggestedItems} isGrid={true} isAbstract={true} />
+      <ItemsDisplay
+        items={suggestedItems}
+        isGrid={true}
+        isAbstract={true}
+        isSwipable={false}
+      />
     </>
   );
 }

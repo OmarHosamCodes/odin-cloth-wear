@@ -147,7 +147,7 @@ export default function PersistentDrawerLeft() {
               loading="lazy"
             />
           </IconButton>
-          <Link href={"/"}>
+          <a href={"/"}>
             <Image
               src={logoURL}
               alt="Odin Cloth Wear Logo"
@@ -155,8 +155,8 @@ export default function PersistentDrawerLeft() {
               height={208 / 4}
               loading="lazy"
             />
-          </Link>
-          <Link href={"/cart"}>
+          </a>
+          <a href={"/cart"}>
             <Image
               src={ShoppingCartIcon}
               alt="Shopping Cart Icon"
@@ -165,7 +165,7 @@ export default function PersistentDrawerLeft() {
               className={styles.shoppingCartIcon}
               loading="lazy"
             />
-          </Link>
+          </a>
         </Toolbar>
         <form className={styles.appbarSearchContainer} ref={formRef}>
           <input
@@ -259,7 +259,22 @@ export default function PersistentDrawerLeft() {
             </ListItemIcon>
             <ListItemText primary={"Home"} style={{ cursor: "pointer" }} />
           </ListItem>
-          {/* <ListItem>
+
+          <ListItem>
+            <ListItemIcon>
+              <Image
+                src={FlashkIcon}
+                alt="Hot Now Icon"
+                width={24}
+                height={24}
+                className={styles.hotNowIcon}
+                loading="lazy"
+              />
+            </ListItemIcon>
+            <ListItemText primary={"Hot Now"} />
+          </ListItem>
+          <HotNowShowcase items={items} />
+          <ListItem>
             <ListItemIcon>
               <Image
                 src={FunnelIcon}
@@ -287,28 +302,6 @@ export default function PersistentDrawerLeft() {
               </ListItem>
             ))}
           </div>
-          <Divider
-            style={{
-              width: "100%",
-              height: 3,
-              background: "#f0f0f0ce",
-            }}
-          /> */}
-
-          <ListItem>
-            <ListItemIcon>
-              <Image
-                src={FlashkIcon}
-                alt="Hot Now Icon"
-                width={24}
-                height={24}
-                className={styles.hotNowIcon}
-                loading="lazy"
-              />
-            </ListItemIcon>
-            <ListItemText primary={"Hot Now"} />
-          </ListItem>
-          <HotNowShowcase items={items} />
         </List>
       </Drawer>
       <Main open={open}></Main>

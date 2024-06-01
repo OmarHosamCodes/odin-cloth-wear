@@ -19,7 +19,7 @@ export default function AddToCart({
     if (!selectedColor || !selectedSize) {
       return toast.error("Please select a color and size", {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -40,7 +40,7 @@ export default function AddToCart({
       CartRepository.saveCartItem(itemToAdd);
       return toast.success("Item Added !", {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -59,7 +59,7 @@ export default function AddToCart({
       </button>
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

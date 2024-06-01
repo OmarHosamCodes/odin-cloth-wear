@@ -100,7 +100,7 @@
 
 .modal::-webkit-scrollbar {
   scrollbar-color: #f0f0f0 #0f0f0f;
-  scrollbar-width: thin;
+  :thin ;
 }
 
 .modalContent {

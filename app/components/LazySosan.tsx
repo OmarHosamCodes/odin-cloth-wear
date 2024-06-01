@@ -22,7 +22,7 @@ export default function LazySosan({ items }: { items: Item[] }) {
         />
       ))}
 
-      <text className={styles.actionButton}>Inspired by L.A street wear</text>
+      <h3 className={styles.actionButton}>Inspired by L.A street wear</h3>
     </div>
   );
 }

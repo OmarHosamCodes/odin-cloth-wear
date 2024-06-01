@@ -5,13 +5,11 @@ import styles from "./CartItem.module.css";
 import trashIcon from "../../../public/trash.svg";
 import { useState } from "react";
 import CartRepository from "../repository";
-import { useRouter } from "next/navigation";
 
 export default function CartItem({ cartItem }: { cartItem: CartItemModel }) {
   const [quantity, setQuantity] = useState<number>(cartItem.quantity);
   const [visible, setVisible] = useState<boolean>(true);
 
-  const router = useRouter();
   const increment = () => {
     setQuantity(quantity + 1);
 
@@ -47,19 +45,19 @@ export default function CartItem({ cartItem }: { cartItem: CartItemModel }) {
           className={styles.image}
         />
         <div className={styles.nameColorPrice}>
-          <text className={styles.name}>{cartItem!.name}</text>
+          <h3 className={styles.name}>{cartItem!.name}</h3>
           <div
             className={styles.color}
             style={{
               backgroundColor: cartItem!.color,
             }}
           />
-          <text className={styles.price}>
+          <h3 className={styles.price}>
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "EGP",
             }).format(cartItem!.price * quantity)}
-          </text>
+          </h3>
         </div>
       </div>
 
@@ -67,7 +65,7 @@ export default function CartItem({ cartItem }: { cartItem: CartItemModel }) {
         <button className={styles.increment} onClick={() => increment()}>
           +
         </button>
-        <text className={styles.quantity}>{quantity}</text>
+        <h3 className={styles.quantity}>{quantity}</h3>
         <button className={styles.decrement} onClick={() => decrement()}>
           -
         </button>

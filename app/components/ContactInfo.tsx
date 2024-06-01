@@ -12,10 +12,10 @@ function ContactInfo() {
       <div className={styles.ContactInfoContent}>
         <h2 className={styles.ContactInfoTitle}>Contact</h2>
         <div className={styles.ContactLinks}>
-          <Link href="/info/about">We are ODIN</Link>
-          <Link href="/info/delivery">Delivery and returns policy</Link>
-          <Link href="/info/privacy">Privacy policy</Link>
-          <Link href="/info/terms">Terms and conditions</Link>
+          <a href="/info/about">We are ODIN</a>
+          <a href="/info/delivery">Delivery and returns policy</a>
+          <a href="/info/privacy">Privacy policy</a>
+          <a href="/info/terms">Terms and conditions</a>
         </div>
         <div className={styles.SocialMediaSection}>
           <div className={styles.SocialMediaTitle}>Social Media</div>

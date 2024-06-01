@@ -1,3 +1,8 @@
+export type sizes = {
+  size: string;
+  isInStock: boolean;
+};
+
 class Item {
   id: string;
   name: string;
@@ -7,7 +12,7 @@ class Item {
   category: string;
   subCategory: string;
   colors: any[];
-  sizes: any[];
+  sizes: sizes[];
   sizing: any[];
   tags: any[];
   constructor(
@@ -19,7 +24,7 @@ class Item {
     category: string,
     subCategory: string,
     colors: any[],
-    sizes: any[],
+    sizes: sizes[],
     sizing: any[],
     tags: any[]
   ) {
@@ -113,13 +118,6 @@ class Item {
 
   static filterItemsByCategory(items: Item[], category: string): Item[] {
     return items.filter((item) => item.category === category);
-  }
-  static cartItemsFromJson(json: any): Item[] {
-    let cartItems: Item[] = [];
-    json.map((item: any) => {
-      cartItems.push(Item.fromJson(item));
-    });
-    return cartItems;
   }
 }
 

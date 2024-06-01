@@ -6,10 +6,12 @@ export default function ItemsDisplay({
   items,
   isGrid,
   isAbstract,
+  isSwipable,
 }: {
   items: Item[];
   isGrid?: boolean;
   isAbstract?: boolean;
+  isSwipable: boolean;
 }) {
   return (
     <div className={isGrid ? styles.itemsGrid : styles.itemsList}>
@@ -19,6 +21,7 @@ export default function ItemsDisplay({
           item={item}
           isGrid={isGrid}
           isAbstract={isAbstract}
+          isSwipable={isSwipable}
         />
       ))}
     </div>

@@ -8,6 +8,8 @@ import LazySosan from "./components/LazySosan";
 import Splash from "./components/splash";
 import Item from "./item/model";
 import ItemRepository from "./item/repository";
+import dynamic from "next/dynamic";
+
 const itemsFetch = cache(async () => {
   try {
     let response: Item[] = (await ItemRepository.instants.get()) as Item[];
@@ -16,35 +18,28 @@ const itemsFetch = cache(async () => {
     return [];
   }
 });
-export default function Home() {
-  const [loading, setLoading] = useState(true);
-  const handleLoading = () => {
-    setLoading(false);
-  };
-
+function Home() {
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
     itemsFetch().then((items) => {
       setItems(items);
     });
-
-    return () => {
-      ItemRepository.storage.removeItem(ItemRepository.key);
-    };
   }, []);
-  if (loading) {
-    return <Splash handleLoading={handleLoading} loading={loading} />;
-  } else {
-    return (
-      <>
-        <PersistentDrawerLeft />
-        <main>
-          <LazySosan items={items} />
-          <ItemsDisplay items={items} />
-          <ContactInfo />
-        </main>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <Splash />
+      <PersistentDrawerLeft />
+      <LazySosan items={items} />
+      <ItemsDisplay items={items} isSwipable={true} />
+      <ContactInfo />
+    </>
+  );
 }
+
+const NoSSRHome = dynamic(() => Promise.resolve(Home), {
+  ssr: false,
+});
+
+export default NoSSRHome;

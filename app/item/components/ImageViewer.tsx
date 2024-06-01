@@ -9,7 +9,7 @@ interface ImageViewerProps {
   item: {
     images: string[];
   };
-  showDetails?: boolean;
+  isSwipable?: boolean;
   id: string;
   disableNavigation?: boolean;
   width?: string;
@@ -17,7 +17,7 @@ interface ImageViewerProps {
 
 export default function ImageViewer({
   item,
-  showDetails = true,
+  isSwipable,
   id,
   disableNavigation = false,
   width = "100%",
@@ -55,21 +55,22 @@ export default function ImageViewer({
           src={image}
           alt={`Image ${index}`}
           className={styles.image}
-          style={{ display: currentPage === index ? "block" : "none" }}
+          style={{
+            display: currentPage === index ? "block" : "none",
+          }}
           width={432}
           height={649}
+          objectFit="cover"
+          quality={90}
+          // fill
           priority
-          loader={({ src }) => {
-            return src;
-          }}
-          blurDataURL="../../../public/placeholder.png"
           onClick={() => {
             if (disableNavigation) return;
             router.push(`/item/${id}`);
           }}
         />
       ))}
-      {showDetails && (
+      {isSwipable && (
         <div className={styles.detailsContainer}>
           {item.images.map((_, index: number) => (
             <span

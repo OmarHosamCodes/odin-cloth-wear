@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 export function HotNow({ item }: { item: Item }) {
   return (
-    <Link href={`/item/${item.id}`}>
+    <a href={`/item/${item.id}`}>
       <Image
         src={item.images[0]}
         alt={item.name}
@@ -15,7 +15,7 @@ export function HotNow({ item }: { item: Item }) {
         height={200}
         className={styles.hotNow}
       />
-    </Link>
+    </a>
   );
 }
 

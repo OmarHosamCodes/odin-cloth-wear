@@ -15,8 +15,6 @@
   flex-direction: row;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none;
-  scrollbar-gutter: none;
   max-width: 300px;
   gap: 10px;
   margin-left: 10px;
@@ -50,6 +48,9 @@
   box-shadow: 0 1px 5px rgba(213, 213, 213, 0.2);
 }
 
-.actionButton:hover {
-  rotate: 10deg;
+.actionButton:last-child:hover {
+  transform: rotate(10deg);
+}
+.actionButton:first-child:hover {
+  transform: rotate(-10deg);
 }

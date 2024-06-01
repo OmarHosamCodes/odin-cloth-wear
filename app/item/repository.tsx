@@ -1,3 +1,5 @@
+"use client";
+
 import Item from "./model";
 import { firestore } from "../config/firebase";
 import {
@@ -8,7 +10,6 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { LocalKey, LocalStorage } from "ts-localstorage";
 
 class ItemRepository {
   firestore: Firestore;
@@ -24,11 +25,13 @@ class ItemRepository {
     firestore,
     ItemRepository.collection
   );
-  private static _storage = LocalStorage;
+
+  private static _storage =
+    typeof window !== "undefined" ? sessionStorage : null;
   public static get storage() {
     return ItemRepository._storage;
   }
-  static key = new LocalKey<string | null | undefined>("items", "");
+  static key = "items";
 
   async getById(itemId: string | null): Promise<Item | null> {
     const itemDoc = doc(firestore, `${ItemRepository.collection}/${itemId}`);
@@ -90,7 +93,10 @@ class ItemRepository {
   }
 
   async get(): Promise<Item[]> {
-    const itemsFromCache = ItemRepository.storage.getItem(ItemRepository.key);
+    let itemsFromCache;
+    if (typeof window !== "undefined") {
+      itemsFromCache = ItemRepository.storage!.getItem(ItemRepository.key);
+    }
 
     if (itemsFromCache) {
       return JSON.parse(itemsFromCache);
@@ -101,10 +107,12 @@ class ItemRepository {
         itemsFromDB.push(Item.fromJson(doc.data()));
       });
 
-      ItemRepository.storage.setItem(
-        ItemRepository.key,
-        JSON.stringify(itemsFromDB)
-      );
+      if (typeof window !== "undefined") {
+        ItemRepository.storage!.setItem(
+          ItemRepository.key,
+          JSON.stringify(itemsFromDB)
+        );
+      }
       return itemsFromDB;
     }
   }

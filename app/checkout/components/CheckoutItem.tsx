@@ -17,22 +17,20 @@ export default function CheckoutItem({
           className={styles.image}
         />
         <div className={styles.nameColorPrice}>
-          <text className={styles.name}>{checkoutItem.name}</text>
+          <h6 className={styles.name}>{checkoutItem.name}</h6>
           <div
             className={styles.color}
             style={{
               backgroundColor: checkoutItem.color,
             }}
           />
-          <text className={styles.price}>
+          <h6 className={styles.price}>
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "EGP",
             }).format(checkoutItem.price * checkoutItem.quantity)}
-          </text>
-          <text className={styles.quantity}>
-            Quantity: {checkoutItem.quantity}
-          </text>
+          </h6>
+          <h6 className={styles.quantity}>Quantity: {checkoutItem.quantity}</h6>
         </div>
       </div>
     </div>
